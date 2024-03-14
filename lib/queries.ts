@@ -49,7 +49,10 @@ export const allPostsQuery = () => {
   } satisfies QueryGenqlSelection;
 };
 
-export async function getMorePosts(slug: string, preview: boolean) {
+export async function getMorePosts(
+  slug: string,
+  preview: boolean
+): Promise<any> {
   const query = await basehub({
     draft: preview,
     next: { revalidate: 60 },
@@ -71,4 +74,24 @@ export async function getMorePosts(slug: string, preview: boolean) {
   });
 
   return query.blog.posts.items;
+}
+
+export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
+  const query = await basehub({ draft: true }).query({
+    blog: {
+      posts: {
+        __args: {
+          filter: {
+            _sys_slug: {
+              eq: slug,
+            },
+          },
+          first: 1,
+        },
+        items: POST_FRAGMENT,
+      },
+    },
+  });
+
+  return query.blog.posts.items[0];
 }

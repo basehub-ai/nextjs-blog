@@ -13,6 +13,8 @@ export default async function Page() {
       queries={[allPostsQuery()]}
     >
       {async ([{ blog }]) => {
+        "use server";
+
         const heroPost = blog.posts.items[0];
         const morePosts = blog.posts.items.slice(1);
 

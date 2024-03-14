@@ -54,6 +54,8 @@ export default async function PostPage({
       queries={[postBySlugQuery(params.slug)]}
     >
       {async ([{ blog }]) => {
+        "use server";
+
         const [post] = blog.posts.items;
         if (!post) notFound();
 
