@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { basehub } from "basehub";
@@ -21,6 +22,24 @@ export async function generateStaticParams() {
   });
 
   return posts.items.map((post) => ({ slug: post._slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const { blog } = await basehub({
+    next: { revalidate: 60 },
+    draft: draftMode().isEnabled,
+  }).query(postBySlugQuery(params.slug));
+  const [post] = blog.posts.items;
+  if (!post) notFound();
+
+  return {
+    title: `Post / ${post._title}`,
+    description: post.excerpt,
+  };
 }
 
 export default async function PostPage({

@@ -45,7 +45,7 @@ export function Post({ post }: { post: any }) {
               );
             },
             ol(props) {
-              return <ol className="list-decimal mx-5" {...props} />;
+              return <ol className="list-decimal ms-5" {...props} />;
             },
           }}
         >
