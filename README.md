@@ -17,7 +17,7 @@ This example showcases Next.js's [Static Generation](https://nextjs.org/docs/bas
 
 ## Demo
 
-### [https://basehub-nextjs-blog.vercel.app/](/#)
+### [https://nextjs-blog-basehub.vercel.app/](https://nextjs-blog-basehub.vercel.app/)
 
 ## Deploy your own
 
@@ -196,7 +196,7 @@ pnpm basehub
 
 Import it into your app and retrieve your data without worrying about type definitions.
 
-☑ This example query will be inferred from your schema.
+✅ This example query will be inferred from your schema.
 
 ```tsx
 import { basehub } from "basehub";

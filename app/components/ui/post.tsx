@@ -9,10 +9,13 @@ export function Post({ post }: { post: any }) {
       <h1 className="mb-12 text-center text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-7xl md:leading-none lg:text-8xl">
         {post._title}
       </h1>
-      <div className="hidden md:mb-12 md:block">
+      <div className="hidden md:block md:mb-6">
         {post.author && (
           <Avatar title={post.author._title} url={post.author.avatar.url} />
         )}
+      </div>
+      <div className="hidden md:block md:mb-12 text-base">
+        <Date dateString={post.date} />
       </div>
       <div className="mb-8 sm:mx-0 md:mb-16">
         <CoverImage title={post._title} url={post.coverImage.url} />
@@ -23,12 +26,12 @@ export function Post({ post }: { post: any }) {
             <Avatar title={post.author._title} url={post.author.avatar.url} />
           )}
         </div>
-        <div className="mb-6 text-lg">
+        <div className="mb-12 text-base block md:hidden">
           <Date dateString={post.date} />
         </div>
       </div>
 
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-2xl text-lg leading-relaxed">
         <RichText
           components={{
             p(props) {
