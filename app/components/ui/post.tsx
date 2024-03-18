@@ -2,8 +2,9 @@ import { RichText } from "basehub/react-rich-text";
 import CoverImage from "@/app/components/ui/cover-image";
 import Avatar from "@/app/components/ui/avatar";
 import Date from "@/app/components/date";
+import { Post } from "@/lib/queries";
 
-export function Post({ post }: { post: any }) {
+export function Post({ post }: { post: Post }) {
   return (
     <article>
       <h1 className="mb-12 text-center text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-7xl md:leading-none lg:text-8xl">

@@ -1,4 +1,10 @@
-import { PostsItemGenqlSelection, QueryGenqlSelection, basehub } from "basehub";
+import {
+  FieldsSelection,
+  PostsItem,
+  PostsItemGenqlSelection,
+  QueryGenqlSelection,
+  basehub,
+} from "basehub";
 
 export const POST_FRAGMENT = {
   _id: true,
@@ -23,6 +29,8 @@ export const POST_FRAGMENT = {
   date: true,
   excerpt: true,
 } satisfies PostsItemGenqlSelection;
+
+export type Post = FieldsSelection<PostsItem, typeof POST_FRAGMENT>;
 
 export const postBySlugQuery = (slug: string) => {
   return {
@@ -49,10 +57,7 @@ export const allPostsQuery = () => {
   } satisfies QueryGenqlSelection;
 };
 
-export async function getMorePosts(
-  slug: string,
-  preview: boolean
-): Promise<any> {
+export async function getMorePosts(slug: string, preview: boolean) {
   const query = await basehub({
     draft: preview,
     next: { revalidate: 60 },
@@ -76,7 +81,7 @@ export async function getMorePosts(
   return query.blog.posts.items;
 }
 
-export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
+export async function getPreviewPostBySlug(slug: string | null) {
   const query = await basehub({ draft: true }).query({
     blog: {
       posts: {

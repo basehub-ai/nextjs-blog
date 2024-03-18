@@ -2,6 +2,7 @@ import Link from "next/link";
 import Date from "../date";
 import CoverImage from "./cover-image";
 import Avatar from "./avatar";
+import { Post } from "@/lib/queries";
 
 export function HeroPost({
   title,
@@ -12,10 +13,10 @@ export function HeroPost({
   slug,
 }: {
   title: string;
-  coverImage: any;
+  coverImage: Post["coverImage"];
   date: string;
   excerpt: string;
-  author: any;
+  author: Post["author"];
   slug: string;
 }) {
   return (

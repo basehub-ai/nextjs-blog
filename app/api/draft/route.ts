@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   const secret = searchParams.get("secret");
   const slug = searchParams.get("slug");
 
-  if (secret !== process.env.BASEHUB_DRAFT || !slug) {
+  if (secret !== process.env.BASEHUB_DRAFT_SECRET || !slug) {
     return new Response("Invalid token", { status: 401 });
   }
 
@@ -19,5 +19,5 @@ export async function GET(request: Request) {
 
   draftMode().enable();
 
-  redirect(`/posts/${post.slug}`);
+  redirect(`/posts/${post._slug}`);
 }

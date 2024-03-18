@@ -2,6 +2,7 @@ import Link from "next/link";
 import Avatar from "./avatar";
 import Date from "../date";
 import CoverImage from "./cover-image";
+import { Post } from "@/lib/queries";
 
 export function PostPreview({
   title,
@@ -12,10 +13,10 @@ export function PostPreview({
   slug,
 }: {
   title: string;
-  coverImage: any;
+  coverImage: Post["coverImage"];
   date: string;
   excerpt: string;
-  author: any;
+  author: Post["author"];
   slug: string;
 }) {
   return (

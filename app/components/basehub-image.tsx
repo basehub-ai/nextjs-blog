@@ -1,18 +1,13 @@
 "use client";
+import Image, { ImageLoaderProps, ImageProps } from "next/image";
 
-import Image from "next/image";
-
-interface BaseHubImageProps {
-  src: string;
-  width?: number;
-  quality?: number;
-  [key: string]: any;
-}
-
-const baseHubLoader = ({ src, width, quality }: BaseHubImageProps) => {
-  return `${src}?w=${width}&q=${quality || 75}`;
+const basehubLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  if (src.endsWith("/public")) {
+    src = src.replace("/public", `/w=${width},quality=${quality || 85}`);
+  }
+  return src;
 };
 
-export default function BaseHubImage(props: BaseHubImageProps) {
-  return <Image alt={props.alt} loader={baseHubLoader} {...props} />;
+export default function BaseHubImage(props: ImageProps) {
+  return <Image loader={basehubLoader} {...props} />;
 }

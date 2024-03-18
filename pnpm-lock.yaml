@@ -8,6 +8,9 @@ dependencies:
   basehub:
     specifier: ^3.0.4
     version: 3.0.4(react-dom@18.2.0)(react@18.2.0)
+  clsx:
+    specifier: ^2.1.0
+    version: 2.1.0
   date-fns:
     specifier: ^3.4.0
     version: 3.4.0
@@ -1182,6 +1185,11 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
+    dev: false
+
+  /clsx@2.1.0:
+    resolution: {integrity: sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==}
+    engines: {node: '>=6'}
     dev: false
 
   /color-convert@2.0.1:

@@ -1,9 +1,6 @@
 import Link from "next/link";
-import BaseHubImage from "../basehub-image";
-
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import Image from "next/image";
+import { clsx } from "clsx";
 
 export default function CoverImage({
   title,
@@ -15,13 +12,13 @@ export default function CoverImage({
   slug?: string;
 }) {
   const image = (
-    <BaseHubImage
+    <Image
       alt={`Cover Image for ${title}`}
       priority
       width={2000}
       height={1000}
-      className={cn("shadow-small", {
-        "hover:shadow-medium transition-shadow duration-200": slug,
+      className={clsx("shadow-sm", {
+        "hover:shadow-md transition-shadow duration-200": slug,
       })}
       src={url}
     />
