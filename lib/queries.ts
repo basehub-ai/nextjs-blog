@@ -48,7 +48,7 @@ export const allPostsQuery = () => {
     blog: {
       posts: {
         __args: {
-          first: 3,
+          first: 10,
           orderBy: "date__DESC",
         },
         items: POST_FRAGMENT,
@@ -70,7 +70,7 @@ export async function getMorePosts(slug: string, preview: boolean) {
               notEq: slug,
             },
           },
-          first: 2,
+          first: 10,
           orderBy: "date__DESC",
         },
         items: POST_FRAGMENT,

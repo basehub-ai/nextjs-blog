@@ -29,7 +29,7 @@ export function PostPreview({
           {title}
         </Link>
       </h3>
-      <div className="text-base mb-4">
+      <div className="text-base text-gray-500 mb-4">
         <Date dateString={date} />
       </div>
       <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
