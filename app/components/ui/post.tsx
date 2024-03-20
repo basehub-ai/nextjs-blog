@@ -44,9 +44,10 @@ export default function Post({ post }: { post: TPost }) {
               img: (props) => (
                 <>
                   <Image
-                    className="rounded-lg"
-                    alt={props.caption ?? ""}
                     {...props}
+                    alt={props.caption ?? "Image"}
+                    className="rounded-lg"
+                    priority
                   />
                   {props.caption && (
                     <figcaption className="text-center">

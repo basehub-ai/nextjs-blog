@@ -1,18 +1,18 @@
 import { ReactNode } from "react";
 import { type Highlighter, getHighlighter } from "shiki";
 
-type CodeProps = {
+type Code = {
   children: ReactNode;
   isInline: boolean;
   language: string;
   code: string;
 };
 
-type CodeSnippetProps = {
-  data: CodeProps;
+type CodeSnippet = {
+  data: Code;
 };
 
-export default async function CodeSnippet({ data }: CodeSnippetProps) {
+export default async function CodeSnippet({ data }: CodeSnippet) {
   const highlighter: Highlighter = await getHighlighter({
     themes: ["dark-plus"],
     langs: [data.language],
@@ -28,6 +28,6 @@ export default async function CodeSnippet({ data }: CodeSnippetProps) {
       {data.children}
     </span>
   ) : (
-    <code className="font-mono" dangerouslySetInnerHTML={{ __html: html }} />
+    <code dangerouslySetInnerHTML={{ __html: html }} />
   );
 }
