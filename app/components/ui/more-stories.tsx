@@ -1,7 +1,7 @@
 import { Post } from "@/lib/queries";
-import { PostPreview } from "./post-preview";
+import PostPreview from "./post-preview";
 
-export function MoreStories({ morePosts }: { morePosts: Post[] }) {
+export default function MoreStories({ morePosts }: { morePosts: Post[] }) {
   return (
     <section>
       <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">

@@ -4,7 +4,7 @@ import Date from "../date";
 import CoverImage from "./cover-image";
 import { Post } from "@/lib/queries";
 
-export function PostPreview({
+export default function PostPreview({
   title,
   coverImage,
   date,

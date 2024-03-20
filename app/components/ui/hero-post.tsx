@@ -4,7 +4,7 @@ import CoverImage from "./cover-image";
 import Avatar from "./avatar";
 import { Post } from "@/lib/queries";
 
-export function HeroPost({
+export default function HeroPost({
   title,
   coverImage,
   date,

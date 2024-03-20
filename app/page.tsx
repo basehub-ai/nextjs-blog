@@ -1,8 +1,8 @@
 import { draftMode } from "next/headers";
 import { Pump } from "basehub/react-pump";
-import { Intro } from "./components/ui/intro";
-import { HeroPost } from "./components/ui/hero-post";
-import { MoreStories } from "./components/ui/more-stories";
+import Intro from "./components/ui/intro";
+import HeroPost from "./components/ui/hero-post";
+import MoreStories from "./components/ui/more-stories";
 import { allPostsQuery } from "@/lib/queries";
 
 export default async function Page() {

@@ -1,6 +1,6 @@
 import { EXAMPLE_PATH } from "@/lib/constants";
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="border-t">
       <div className="container mx-auto px-5">
