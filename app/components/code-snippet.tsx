@@ -24,8 +24,10 @@ export default async function CodeSnippet({ data }: CodeSnippetProps) {
   });
 
   return data.isInline ? (
-    <code>{data.children}</code>
+    <span className="dark:bg-gray-800 bg-gray-400 font-mono px-1 py-0.5 rounded-md text-sm">
+      {data.children}
+    </span>
   ) : (
-    <pre dangerouslySetInnerHTML={{ __html: html }} />
+    <code className="font-mono" dangerouslySetInnerHTML={{ __html: html }} />
   );
 }

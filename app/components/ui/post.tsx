@@ -37,7 +37,7 @@ export default function Post({ post }: { post: TPost }) {
       </div>
 
       <div className="mx-auto max-w-2xl">
-        <div className="prose prose-lg dark:prose-invert hover:prose-a:text-orange-500 prose-code:font-mono">
+        <div className="prose dark:prose-invert hover:prose-a:text-orange-500">
           <RichText
             components={{
               code: (props) => <CodeSnippet data={props} />,
