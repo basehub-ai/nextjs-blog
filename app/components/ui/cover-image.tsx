@@ -17,7 +17,7 @@ export default function CoverImage({
       priority
       width={2000}
       height={1000}
-      className={clsx("shadow-sm", {
+      className={clsx("shadow-sm rounded-lg", {
         "hover:shadow-md transition-shadow duration-200": slug,
       })}
       src={url}

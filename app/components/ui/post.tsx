@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { RichText } from "basehub/react-rich-text";
 import CoverImage from "@/app/components/ui/cover-image";
 import Avatar from "@/app/components/ui/avatar";
@@ -40,6 +41,20 @@ export default function Post({ post }: { post: TPost }) {
         <div className="prose dark:prose-invert hover:prose-a:text-orange-500">
           <RichText
             components={{
+              img: (props) => (
+                <>
+                  <Image
+                    className="rounded-lg"
+                    alt={props.caption ?? ""}
+                    {...props}
+                  />
+                  {props.caption && (
+                    <figcaption className="text-center">
+                      {props.caption}
+                    </figcaption>
+                  )}
+                </>
+              ),
               code: (props) => <CodeSnippet data={props} />,
             }}
           >
