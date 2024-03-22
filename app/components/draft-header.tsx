@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-export default function PreviewModeIndicator({ draft }: { draft: boolean }) {
+export default function DraftHeader({ draft }: { draft: boolean }) {
   const router = useRouter();
 
   const disableDraftMode = async () => {

@@ -4,8 +4,8 @@ import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { basehub } from "basehub";
 import { Pump } from "basehub/react-pump";
-import Post from "@/app/components/ui/post";
-import MoreStories from "@/app/components/ui/more-stories";
+import Post from "@/app/components/post";
+import MoreStories from "@/app/components/more-stories";
 import { getMorePosts, postBySlugQuery } from "@/lib/queries";
 
 export async function generateStaticParams() {

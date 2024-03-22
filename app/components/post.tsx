@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { RichText } from "basehub/react-rich-text";
-import CoverImage from "@/app/components/ui/cover-image";
-import Avatar from "@/app/components/ui/avatar";
+import CoverImage from "@/app/components/cover-image";
+import Avatar from "@/app/components/avatar";
 import Date from "@/app/components/date";
+import BodyImage from "./body-image";
 import CodeSnippet from "@/app/components/code-snippet";
 import { Post as TPost } from "@/lib/queries";
 
@@ -18,7 +18,7 @@ export default function Post({ post }: { post: TPost }) {
           <Avatar title={post.author._title} url={post.author.avatar.url} />
         )}
       </div>
-      <div className="hidden md:block md:mb-12 text-base text-gray-500">
+      <div className="hidden md:block md:mb-12 text-base dark:text-white/60 text-black/60">
         <Date dateString={post.date} />
       </div>
 
@@ -32,31 +32,18 @@ export default function Post({ post }: { post: TPost }) {
             <Avatar title={post.author._title} url={post.author.avatar.url} />
           )}
         </div>
-        <div className="mb-12 text-base text-gray-500 block md:hidden">
+        <div className="mb-12 text-base dark:text-white/60 text-black/60 block md:hidden">
           <Date dateString={post.date} />
         </div>
       </div>
 
       <div className="mx-auto max-w-2xl">
-        <div className="prose dark:prose-invert hover:prose-a:text-orange-500">
+        <div className="prose dark:prose-invert hover:prose-a:text-orange-500 prose-pre:border dark:prose-pre:border-white/20 prose-pre:bg-black">
           <RichText
             components={{
-              img: (props) => (
-                <>
-                  <Image
-                    {...props}
-                    alt={props.caption ?? "Image"}
-                    className="rounded-lg"
-                    priority
-                  />
-                  {props.caption && (
-                    <figcaption className="text-center">
-                      {props.caption}
-                    </figcaption>
-                  )}
-                </>
-              ),
-              code: (props) => <CodeSnippet data={props} />,
+              img: (props) => <BodyImage {...props} />,
+              pre: (props) => <CodeSnippet {...props} />,
+              code: (props) => <CodeSnippet {...props} />,
             }}
           >
             {post.body.json.content}

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import PreviewModeIndicator from "./components/preview-mode-indicator";
-import Footer from "./components/ui/footer";
+import DraftHeader from "./components/draft-header";
+import Footer from "./components/footer";
 import { CMS_NAME } from "@/lib/constants";
 import "./globals.css";
 
@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <section className="min-h-screen">
-          <PreviewModeIndicator draft={draftMode().isEnabled} />
+          <DraftHeader draft={draftMode().isEnabled} />
           {children}
           <Footer />
         </section>

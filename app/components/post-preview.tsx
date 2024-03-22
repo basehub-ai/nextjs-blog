@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Avatar from "./avatar";
-import Date from "../date";
+import Date from "./date";
 import CoverImage from "./cover-image";
 import { Post } from "@/lib/queries";
 
@@ -29,7 +29,7 @@ export default function PostPreview({
           {title}
         </Link>
       </h3>
-      <div className="text-base text-gray-500 mb-4">
+      <div className="text-base dark:text-white/60 text-black/60 mb-4">
         <Date dateString={date} />
       </div>
       <p className="text-lg leading-relaxed mb-4">{excerpt}</p>

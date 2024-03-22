@@ -1,33 +1,29 @@
 import { ReactNode } from "react";
-import { type Highlighter, getHighlighter } from "shiki";
+import { Highlighter, getHighlighter } from "shiki";
 
-type Code = {
+export default async function CodeSnippet({
+  ...props
+}: {
   children: ReactNode;
-  isInline: boolean;
+  isInline?: boolean;
   language: string;
   code: string;
-};
-
-type CodeSnippet = {
-  data: Code;
-};
-
-export default async function CodeSnippet({ data }: CodeSnippet) {
+}) {
   const highlighter: Highlighter = await getHighlighter({
     themes: ["dark-plus"],
-    langs: [data.language],
+    langs: [props.language],
   });
 
-  const html = highlighter.codeToHtml(data.code, {
+  const html = highlighter.codeToHtml(props.code, {
     theme: "dark-plus",
-    lang: data.language,
+    lang: props.language,
   });
 
-  return data.isInline ? (
-    <span className="dark:bg-gray-800 bg-gray-400 font-mono px-1 py-0.5 rounded-md text-sm">
-      {data.children}
+  return props.isInline ? (
+    <span className="dark:bg-white/20 bg-black/20 dark:text-white text-black font-mono px-1 py-0.5 rounded-md text-sm">
+      {props.children}
     </span>
   ) : (
-    <code dangerouslySetInnerHTML={{ __html: html }} />
+    <section dangerouslySetInnerHTML={{ __html: html }} />
   );
 }
