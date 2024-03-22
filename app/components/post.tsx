@@ -3,7 +3,7 @@ import CoverImage from "@/app/components/cover-image";
 import Avatar from "@/app/components/avatar";
 import Date from "@/app/components/date";
 import BodyImage from "./body-image";
-import CodeSnippet from "@/app/components/code-snippet";
+import CodeBlock from "@/app/components/code-block";
 import { Post as TPost } from "@/lib/queries";
 
 export default function Post({ post }: { post: TPost }) {
@@ -38,12 +38,12 @@ export default function Post({ post }: { post: TPost }) {
       </div>
 
       <div className="mx-auto max-w-2xl">
-        <div className="prose dark:prose-invert hover:prose-a:text-orange-500 prose-pre:border dark:prose-pre:border-white/20 prose-pre:bg-black">
+        <div className="prose dark:prose-invert hover:prose-a:text-orange-500 prose-pre:border dark:prose-pre:border-white/20">
           <RichText
             components={{
               img: (props) => <BodyImage {...props} />,
-              pre: (props) => <CodeSnippet {...props} />,
-              code: (props) => <CodeSnippet {...props} />,
+              pre: (props) => <CodeBlock {...props} />,
+              code: (props) => <CodeBlock {...props} />,
             }}
           >
             {post.body.json.content}

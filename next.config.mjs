@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["basehub.earth"],
-  },
-  experimental: {
-    serverComponentsExternalPackages: ["shiki"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "basehub.earth",
+      },
+    ],
   },
 };
 
