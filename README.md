@@ -13,7 +13,7 @@ A blog example using Next.js and BaseHub.
 
 # A statically generated blog example using Next.js and BaseHub
 
-This example showcases Next.js's [Static Generation](https://nextjs.org/docs/basic-features/pages) feature using [BaseHub](https://basehub.com/) as the data source.
+This example showcases Next.js's [Static Generation](https://nextjs.org/docs) feature using [BaseHub](https://basehub.com/) as the data source.
 
 ## Demo
 
