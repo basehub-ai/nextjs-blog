@@ -66,17 +66,19 @@ export default async function PostPage({
         );
 
         return (
-          <main className="container mx-auto px-5">
+          <main>
             <DraftHeader draft={draftMode().isEnabled} />
-            <h2 className="mt-16 mb-16 md:mb-12 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
-              <Link href="/" className="hover:underline">
-                Blog
-              </Link>
-              .
-            </h2>
-            <Post post={post} />
-            <hr className="border-accent-2 mt-28 mb-24" />
-            <MoreStories morePosts={morePosts} />
+            <section className="container mx-auto px-5">
+              <h2 className="mt-16 mb-16 md:mb-12 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
+                <Link href="/" className="hover:underline">
+                  Blog
+                </Link>
+                .
+              </h2>
+              <Post post={post} />
+              <hr className="border-accent-2 mt-28 mb-24" />
+              <MoreStories morePosts={morePosts} />
+            </section>
           </main>
         );
       }}

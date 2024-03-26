@@ -20,20 +20,22 @@ export default async function Page() {
         const morePosts = blog.posts.items.slice(1);
 
         return (
-          <main className="container mx-auto px-5">
+          <main>
             <DraftHeader draft={draftMode().isEnabled} />
-            <Intro />
-            {heroPost && (
-              <HeroPost
-                title={heroPost._title}
-                coverImage={heroPost.coverImage}
-                date={heroPost.date}
-                author={heroPost.author}
-                slug={heroPost._slug}
-                excerpt={heroPost.excerpt}
-              />
-            )}
-            <MoreStories morePosts={morePosts} />
+            <section className="container mx-auto px-5">
+              <Intro />
+              {heroPost && (
+                <HeroPost
+                  title={heroPost._title}
+                  coverImage={heroPost.coverImage}
+                  date={heroPost.date}
+                  author={heroPost.author}
+                  slug={heroPost._slug}
+                  excerpt={heroPost.excerpt}
+                />
+              )}
+              <MoreStories morePosts={morePosts} />
+            </section>
           </main>
         );
       }}
