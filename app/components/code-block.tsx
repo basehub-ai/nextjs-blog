@@ -32,7 +32,7 @@ export default async function CodeBlock({
     </span>
   ) : (
     <section
-      className="font-mono text-sm"
+      className="font-mono text-sm [&>pre]:overflow-x-auto [&>pre]:!bg-black [&>pre]:pt-4 [&>pre]:pb-5 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

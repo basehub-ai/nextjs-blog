@@ -38,7 +38,7 @@ export default function Post({ post }: { post: TPost }) {
       </div>
 
       <div className="mx-auto max-w-2xl">
-        <div className="prose dark:prose-invert hover:prose-a:text-orange-500 prose-pre:border dark:prose-pre:border-white/10">
+        <div className="prose dark:prose-invert hover:prose-a:text-orange-500 prose-pre:border dark:prose-pre:border-white/20">
           <RichText
             components={{
               img: (props) => <BodyImage {...props} />,

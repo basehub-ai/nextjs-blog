@@ -43,9 +43,6 @@ devDependencies:
   '@types/react-dom':
     specifier: 18.2.22
     version: 18.2.22
-  '@types/react-syntax-highlighter':
-    specifier: 15.5.11
-    version: 15.5.11
   '@typescript-eslint/eslint-plugin':
     specifier: 6.21.0
     version: 6.21.0(@typescript-eslint/parser@6.21.0)(eslint@8.57.0)(typescript@5.4.3)
@@ -679,12 +676,6 @@ packages:
 
   /@types/react-dom@18.2.22:
     resolution: {integrity: sha512-fHkBXPeNtfvri6gdsMYyW+dW7RXFo6Ad09nLFK0VQWR7yGLai/Cyvyj696gbwYvBnhGtevUG9cET0pmUbMtoPQ==}
-    dependencies:
-      '@types/react': 18.2.67
-    dev: true
-
-  /@types/react-syntax-highlighter@15.5.11:
-    resolution: {integrity: sha512-ZqIJl+Pg8kD+47kxUjvrlElrraSUrYa4h0dauY/U/FTUuprSCqvUj+9PNQNQzVc6AJgIWUUxn87/gqsMHNbRjw==}
     dependencies:
       '@types/react': 18.2.67
     dev: true
