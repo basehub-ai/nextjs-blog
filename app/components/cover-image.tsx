@@ -15,8 +15,8 @@ export default function CoverImage({
     <Image
       alt={`Cover Image for ${title}`}
       priority
-      width={1920}
-      height={1080}
+      width={2000}
+      height={1000}
       className={clsx("shadow-sm rounded-lg", {
         "hover:shadow-md transition-shadow duration-200": slug,
       })}
