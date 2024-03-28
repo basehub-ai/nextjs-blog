@@ -43,12 +43,17 @@ export const postBySlugQuery = (slug: string) => {
   } satisfies QueryGenqlSelection;
 };
 
+export async function getPreviewPostBySlug(slug: string) {
+  const query = await basehub({ draft: true }).query(postBySlugQuery(slug));
+  return query.blog.posts.items[0];
+}
+
 export const allPostsQuery = () => {
   return {
     blog: {
       posts: {
         __args: {
-          first: 3,
+          first: 10,
           orderBy: "date__DESC",
         },
         items: POST_FRAGMENT,
@@ -70,33 +75,13 @@ export async function getMorePosts(slug: string, preview: boolean) {
               notEq: slug,
             },
           },
-          first: 2,
+          first: 10,
           orderBy: "date__DESC",
         },
         items: POST_FRAGMENT,
       },
     },
-  });
+  } satisfies QueryGenqlSelection);
 
   return query.blog.posts.items;
-}
-
-export async function getPreviewPostBySlug(slug: string | null) {
-  const query = await basehub({ draft: true }).query({
-    blog: {
-      posts: {
-        __args: {
-          filter: {
-            _sys_slug: {
-              eq: slug,
-            },
-          },
-          first: 1,
-        },
-        items: POST_FRAGMENT,
-      },
-    },
-  });
-
-  return query.blog.posts.items[0];
 }

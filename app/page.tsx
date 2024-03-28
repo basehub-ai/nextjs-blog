@@ -1,8 +1,9 @@
 import { draftMode } from "next/headers";
 import { Pump } from "basehub/react-pump";
-import { Intro } from "./components/ui/intro";
-import { HeroPost } from "./components/ui/hero-post";
-import { MoreStories } from "./components/ui/more-stories";
+import DraftHeader from "./components/draft-header";
+import Intro from "./components/intro";
+import HeroPost from "./components/hero-post";
+import MoreStories from "./components/more-stories";
 import { allPostsQuery } from "@/lib/queries";
 
 export default async function Page() {
@@ -19,19 +20,22 @@ export default async function Page() {
         const morePosts = blog.posts.items.slice(1);
 
         return (
-          <main className="container mx-auto px-5">
-            <Intro />
-            {heroPost && (
-              <HeroPost
-                title={heroPost._title}
-                coverImage={heroPost.coverImage}
-                date={heroPost.date}
-                author={heroPost.author}
-                slug={heroPost._slug}
-                excerpt={heroPost.excerpt}
-              />
-            )}
-            <MoreStories morePosts={morePosts} />
+          <main>
+            <DraftHeader draft={draftMode().isEnabled} />
+            <section className="container mx-auto px-5">
+              <Intro />
+              {heroPost && (
+                <HeroPost
+                  title={heroPost._title}
+                  coverImage={heroPost.coverImage}
+                  date={heroPost.date}
+                  author={heroPost.author}
+                  slug={heroPost._slug}
+                  excerpt={heroPost.excerpt}
+                />
+              )}
+              <MoreStories morePosts={morePosts} />
+            </section>
           </main>
         );
       }}

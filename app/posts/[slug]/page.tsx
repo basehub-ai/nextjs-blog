@@ -4,8 +4,9 @@ import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { basehub } from "basehub";
 import { Pump } from "basehub/react-pump";
-import { MoreStories } from "@/app/components/ui/more-stories";
-import { Post } from "@/app/components/ui/post";
+import DraftHeader from "@/app/components/draft-header";
+import Post from "@/app/components/post";
+import MoreStories from "@/app/components/more-stories";
 import { getMorePosts, postBySlugQuery } from "@/lib/queries";
 
 export async function generateStaticParams() {
@@ -65,16 +66,19 @@ export default async function PostPage({
         );
 
         return (
-          <main className="container mx-auto px-5">
-            <h2 className="mb-20 mt-8 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
-              <Link href="/" className="hover:underline">
-                Blog
-              </Link>
-              .
-            </h2>
-            <Post post={post} />
-            <hr className="border-accent-2 mt-28 mb-24" />
-            <MoreStories morePosts={morePosts} />
+          <main>
+            <DraftHeader draft={draftMode().isEnabled} />
+            <section className="container mx-auto px-5">
+              <h2 className="mt-16 mb-16 md:mb-12 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
+                <Link href="/" className="hover:underline">
+                  Blog
+                </Link>
+                .
+              </h2>
+              <Post post={post} />
+              <hr className="border-accent-2 mt-28 mb-24" />
+              <MoreStories morePosts={morePosts} />
+            </section>
           </main>
         );
       }}

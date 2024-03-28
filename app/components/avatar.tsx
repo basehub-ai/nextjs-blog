@@ -7,8 +7,8 @@ export default function Avatar({ title, url }: { title: string; url: string }) {
         <Image
           alt={title}
           className="object-cover h-full rounded-full"
-          height={48}
-          width={48}
+          height={96}
+          width={96}
           src={url}
         />
       </div>
