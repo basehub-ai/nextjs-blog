@@ -39,14 +39,14 @@ body {
     @apply border-l-4 border-transparent;
     &::before {
       counter-increment: step;
-      @apply mr-6 inline-block w-4 border-transparent text-right text-neutral-600 content-[counter(step)];
+      @apply mr-6 inline-block w-4 border-transparent text-right text-[#646464] content-[counter(step)];
     }
     &.highlighted,
     &.diff {
       @apply -ml-4 -mr-4 inline-block w-[calc(100%+(theme(spacing.4)+theme(spacing.4)))] pl-4 pr-4;
     }
     &.highlighted {
-      @apply border-neutral-500 bg-neutral-800;
+      @apply border-[#343434] bg-[#161616];
     }
     &.diff {
       &.add,
@@ -56,15 +56,15 @@ body {
         }
       }
       &.add {
-        @apply border-green-500 bg-green-500/30 before:text-green-500;
+        @apply border-green-500/70 bg-green-500/30 before:text-green-500/70;
         span:first-child::before {
-          @apply text-green-500 content-["+"];
+          @apply text-green-500/70 content-["+"];
         }
       }
       &.remove {
-        @apply border-red-500 bg-red-500/30 opacity-70 *:!text-neutral-400 before:text-red-500;
+        @apply border-red-500/70 bg-red-500/30 before:text-red-500/70;
         span:first-child::before {
-          @apply text-red-500 content-["-"];
+          @apply text-red-500/70 content-["-"];
         }
       }
     }

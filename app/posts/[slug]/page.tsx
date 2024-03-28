@@ -76,7 +76,7 @@ export default async function PostPage({
                 .
               </h2>
               <Post post={post} />
-              <hr className="border-accent-2 mt-28 mb-24" />
+              <hr className="mt-28 mb-24" />
               <MoreStories morePosts={morePosts} />
             </section>
           </main>
