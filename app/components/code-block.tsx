@@ -6,6 +6,8 @@ import {
   transformerNotationHighlight,
   transformerNotationWordHighlight,
 } from "@shikijs/transformers";
+import CopyToClipboard from "./copy-to-clipboard";
+import FileIcon from "./icons/file-icon";
 
 export default async function CodeBlock({
   ...props
@@ -31,9 +33,19 @@ export default async function CodeBlock({
       {props.children}
     </span>
   ) : (
-    <section
-      className="font-mono text-sm [&>pre]:overflow-x-auto [&>pre]:!bg-black [&>pre]:pt-4 [&>pre]:pb-5 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <div className="overflow-hidden rounded-lg border border-neutral-700">
+      <header className="flex flex-row items-center justify-between h-10 p-2 bg-[#040404]">
+        <FileIcon />
+        <p className="ml-[5px] mr-auto font-mono font-light text-xs text-neutral-500 leading-4">
+          .{props.language}
+        </p>
+
+        <CopyToClipboard code={props.code} />
+      </header>
+      <section
+        className="border-t border-neutral-700 text-sm font-mono [&>pre]:overflow-x-auto [&>pre]:m-0 [&>pre]:rounded-none [&>pre]:!bg-[#040404] [&>pre]:p-4 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full"
+        dangerouslySetInnerHTML={{ __html: html }}
+      ></section>
+    </div>
   );
 }

@@ -43,7 +43,7 @@ body {
     }
     &.highlighted,
     &.diff {
-      @apply -ml-4 -mr-5 inline-block w-[calc(100%+(theme(spacing.5)+theme(spacing.4)))] pl-4 pr-5;
+      @apply -ml-4 -mr-4 inline-block w-[calc(100%+(theme(spacing.4)+theme(spacing.4)))] pl-4 pr-4;
     }
     &.highlighted {
       @apply border-neutral-500 bg-neutral-800;

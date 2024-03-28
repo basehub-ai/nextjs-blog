@@ -13,11 +13,12 @@ export default function DraftHeader({ draft }: { draft: boolean }) {
       if (response.ok) {
         router.refresh();
       } else {
-        throw new Error("Failed to exit draft mode. Please try again later.");
+        console.error("Failed to exit draft mode. Please try again later.");
       }
     } catch (error) {
-      throw new Error(
-        "An error occurred when trying to exit draft mode. Please try again."
+      console.error(
+        "An error occurred when trying to exit draft mode. Please try again.",
+        error
       );
     }
   };
