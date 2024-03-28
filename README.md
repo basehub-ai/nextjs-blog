@@ -10,39 +10,16 @@ This example showcases Next.js's [Static Generation](https://nextjs.org/docs) fe
 
 Using the Deploy Button below, you'll deploy the Next.js project as well as connect it to your BaseHub repository using the Vercel BaseHub Integration.
 
-[![Deploy with Vercel](https://vercel.com/button)](/#)
-
-### Related examples
-
-- [AgilityCMS](/examples/cms-agilitycms)
-- [Builder.io](/examples/cms-builder-io)
-- [ButterCMS](/examples/cms-buttercms)
-- [Contentful](/examples/cms-contentful)
-- [Cosmic](/examples/cms-cosmic)
-- [DatoCMS](/examples/cms-datocms)
-- [DotCMS](/examples/cms-dotcms)
-- [Drupal](/examples/cms-drupal)
-- [Enterspeed](/examples/cms-enterspeed)
-- [Ghost](/examples/cms-ghost)
-- [GraphCMS](/examples/cms-graphcms)
-- [Kontent](/examples/cms-kontent-ai)
-- [Prepr](/examples/cms-prepr)
-- [Prismic](/examples/cms-prismic)
-- [Sanity](/examples/cms-sanity)
-- [Sitefinity](/examples/cms-sitefinity)
-- [Storyblok](/examples/cms-storyblok)
-- [TakeShape](/examples/cms-takeshape)
-- [Umbraco heartcore](/examples/cms-umbraco-heartcore)
-- [Webiny](/examples/cms-webiny)
-- [Blog Starter](/examples/blog-starter)
-- [WordPress](/examples/cms-wordpress)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/basehub-ai/nextjs-blog)
 
 ## How to use
+
+### With create next-app --example (coming soon 🚧)
 
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
 
 ```bash
-npx create-next-app --example cms-basehub cms-basehub-app
+npx create next-app --example cms-basehub cms-basehub-app
 ```
 
 ```bash
@@ -53,7 +30,35 @@ yarn create next-app --example cms-basehub cms-basehub-app
 pnpm create next-app --example cms-basehub cms-basehub-app
 ```
 
-## Configuration
+### With git clone (recommended up to now 🚀)
+
+You can also clone the repository directly:
+
+```bash
+git clone git@github.com:basehub-ai/nextjs-blog.git
+```
+
+Then, navigate to the cloned folder:
+
+```bash
+cd nextjs-blog
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+```bash
+yarn install
+```
+
+```bash
+pnpm install
+```
+
+## Configuration from scratch
 
 ### Step 1. Create an account and a repository on BaseHub
 
@@ -61,11 +66,13 @@ First, [create an account on BaseHub](https://basehub.com/signup/).
 
 After creating an account, create a new blank **repository** from the [dashboard](https://basehub.com/) and assign to it any name of your liking.
 
-### Step 2. Create new document
+### Step 2. Create new Document Block
 
-The [document](/#) defines the data structures of your application/websites. The structures are flexible and you can tailor them to your needs.
+The [Document Block](https://basehub.com/docs/basics/content-modeling-with-blocks#document) is like a page inside BaseHub. For example, if you have your Homepage, your About Page, your Pricing Page, these would all be Document Blocks, with nested blocks for things like Text, Images, etc.
 
-For this example you need to create a document that defines an author and a post collection with its content type, you can call it **Blog**. Once you have created the document, you can add fields to it. Likes components, collections, nested pages, rich text, media, etc.
+Document Blocks have a structure that can’t be reused across the Repository—it’s a “singleton”.
+
+For this example you need to create a Document Block that defines an author and a post collection with its content type, you can call it **Blog**. Once you have created the document, you can add fields to it. Likes components, collections, nested pages, rich text, media, etc.
 
 #### Create an `Authors` collection with its content type
 
@@ -147,7 +154,8 @@ pnpm add basehub
 #### 2. Then, you need to configure the set required environment variables
 
 ```bash
-BASEHUB_TOKEN=<your-read-token>
+BASEHUB_TOKEN=<your-read-token> # read token given by BaseHub SDK
+BASEHUB_DRAFT_SECRET=<secure-secret> # create a secure secret for draft content preview
 
 # the following are optional
 
@@ -304,7 +312,7 @@ const Page = async () => {
   return (
     <Pump
       next={{ revalidate: 30 }}
-      draft={draftMode().isEnabled} // [!code highlight]
+      draft={draftMode().isEnabled} // setting draft prop you can enable fast refresh content
       queries={[{ __typename: true }]}
     >
       {async ([data]) => {
@@ -318,12 +326,14 @@ const Page = async () => {
 export default Page;
 ```
 
+You will need to seet the `BASEHUB_DRAFT_SECRET` environment variable to a secure secret. This secret will be used to generate a signed URL that will allow you to preview draft content.
+
 ### Step 8. Deploy on Vercel
 
-You can deploy this app to the cloud with [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+You can deploy this app to the cloud with [Vercel](https://vercel.com/new/clone?repository-url=https://github.com/basehub-ai/nextjs-blog) ([Documentation](https://nextjs.org/docs/deployment)).
 
 #### Deploy Your Local Project
 
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
+To deploy your local project to Vercel, push it to GitHub and [import to Vercel](https://vercel.com/import). You will need to select your GitHub repository during the import process.
 
 **Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
