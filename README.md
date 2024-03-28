@@ -326,7 +326,7 @@ const Page = async () => {
 export default Page;
 ```
 
-You will need to seet the `BASEHUB_DRAFT_SECRET` environment variable to a secure secret. This secret will be used to generate a signed URL that will allow you to preview draft content.
+You will need to set the `BASEHUB_DRAFT_SECRET` environment variable to a secure secret. This secret will be used to generate a signed URL that will allow you to preview draft content.
 
 ### Step 8. Deploy on Vercel
 
