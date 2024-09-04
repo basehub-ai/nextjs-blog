@@ -1,12 +1,6 @@
-import {
-  FieldsSelection,
-  PostsItem,
-  PostsItemGenqlSelection,
-  QueryGenqlSelection,
-  basehub,
-} from "basehub";
+import { fragmentOn, QueryGenqlSelection, basehub } from "basehub";
 
-export const POST_FRAGMENT = {
+export const POST_FRAGMENT = fragmentOn("PostsItem", {
   _id: true,
   _slug: true,
   _title: true,
@@ -28,9 +22,9 @@ export const POST_FRAGMENT = {
   },
   date: true,
   excerpt: true,
-} satisfies PostsItemGenqlSelection;
+});
 
-export type Post = FieldsSelection<PostsItem, typeof POST_FRAGMENT>;
+export type Post = fragmentOn.infer<typeof POST_FRAGMENT>;
 
 export const postBySlugQuery = (slug: string) => {
   return {
@@ -59,7 +53,7 @@ export const allPostsQuery = () => {
         items: POST_FRAGMENT,
       },
     },
-  } satisfies QueryGenqlSelection;
+  };
 };
 
 export async function getMorePosts(slug: string, preview: boolean) {
@@ -81,7 +75,7 @@ export async function getMorePosts(slug: string, preview: boolean) {
         items: POST_FRAGMENT,
       },
     },
-  } satisfies QueryGenqlSelection);
+  });
 
   return query.blog.posts.items;
 }

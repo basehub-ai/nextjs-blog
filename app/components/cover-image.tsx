@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { clsx } from "clsx";
+import { BaseHubImage } from "basehub/next-image";
 
 export default function CoverImage({
   title,
@@ -12,7 +12,7 @@ export default function CoverImage({
   slug?: string;
 }) {
   const image = (
-    <Image
+    <BaseHubImage
       alt={`Cover Image for ${title}`}
       priority
       width={2000}

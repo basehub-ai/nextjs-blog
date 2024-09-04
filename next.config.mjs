@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "basehub.earth",
+        hostname: "assets.basehub.com",
       },
     ],
   },

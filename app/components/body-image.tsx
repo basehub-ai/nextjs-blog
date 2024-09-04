@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { BaseHubImage } from "basehub/next-image";
 
 export default function BodyImage({
   ...props
@@ -11,7 +11,7 @@ export default function BodyImage({
 }) {
   return (
     <>
-      <Image
+      <BaseHubImage
         {...props}
         alt={props.caption ?? "Image"}
         className="rounded-lg"
