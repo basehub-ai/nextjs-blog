@@ -1,6 +1,5 @@
 import { draftMode } from "next/headers";
 import { Pump } from "basehub/react-pump";
-import DraftHeader from "./components/draft-header";
 import Intro from "./components/intro";
 import HeroPost from "./components/hero-post";
 import MoreStories from "./components/more-stories";
@@ -21,7 +20,6 @@ export default async function Page() {
 
         return (
           <main>
-            <DraftHeader draft={draftMode().isEnabled} />
             <section className="container mx-auto px-5">
               <Intro />
               {heroPost && (
