@@ -53,7 +53,7 @@ export const allPostsQuery = () => {
         items: POST_FRAGMENT,
       },
     },
-  };
+  } satisfies QueryGenqlSelection;
 };
 
 export async function getMorePosts(slug: string, preview: boolean) {
