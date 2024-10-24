@@ -1,6 +1,6 @@
 import { BaseHubImage } from "basehub/next-image";
 
-export default function BodyImage({
+export function BodyImage({
   ...props
 }: {
   src: string;

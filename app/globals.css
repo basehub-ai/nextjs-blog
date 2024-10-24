@@ -3,70 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --color: 0, 0, 0;
+  --bg: 255, 255, 255;
+
+  color: rgb(var(--color));
+  background-color: rgb(var(--bg));
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-.shiki {
-  counter-reset: step;
-  counter-increment: step 0;
-  .line {
-    @apply border-l-4 border-transparent;
-    &::before {
-      counter-increment: step;
-      @apply mr-6 inline-block w-4 border-transparent text-right text-[#646464] content-[counter(step)];
-    }
-    &.highlighted,
-    &.diff {
-      @apply -ml-4 -mr-4 inline-block w-[calc(100%+(theme(spacing.4)+theme(spacing.4)))] pl-4 pr-4;
-    }
-    &.highlighted {
-      @apply border-[#343434] bg-[#161616];
-    }
-    &.diff {
-      &.add,
-      &.remove {
-        span:first-child::before {
-          @apply -ml-4 inline-flex w-4;
-        }
-      }
-      &.add {
-        @apply border-green-500/70 bg-green-500/30 before:text-green-500/70;
-        span:first-child::before {
-          @apply text-green-500/70 content-["+"];
-        }
-      }
-      &.remove {
-        @apply border-red-500/70 bg-red-500/30 before:text-red-500/70;
-        span:first-child::before {
-          @apply text-red-500/70 content-["-"];
-        }
-      }
-    }
+    --color: 255, 255, 255;
+    --bg: 0, 0, 0;
   }
 }

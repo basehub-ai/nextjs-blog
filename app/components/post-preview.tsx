@@ -2,31 +2,24 @@ import Link from "next/link";
 import Avatar from "./avatar";
 import Date from "./date";
 import CoverImage from "./cover-image";
-import { Post } from "@/lib/queries";
+import { PostMetaFragment } from "./hero-post";
 
-export default function PostPreview({
-  title,
+export function PostPreview({
+  _title,
   coverImage,
   date,
   excerpt,
   author,
-  slug,
-}: {
-  title: string;
-  coverImage: Post["coverImage"];
-  date: string;
-  excerpt: string;
-  author: Post["author"];
-  slug: string;
-}) {
+  _slug,
+}: PostMetaFragment) {
   return (
     <div>
       <div className="mb-5">
-        <CoverImage title={title} slug={slug} url={coverImage.url} />
+        <CoverImage title={_title} slug={_slug} url={coverImage.url} />
       </div>
       <h3 className="text-3xl mb-3 leading-snug">
-        <Link href={`/posts/${slug}`} className="hover:underline">
-          {title}
+        <Link href={`/posts/${_slug}`} className="hover:underline">
+          {_title}
         </Link>
       </h3>
       <div className="text-base dark:text-white/60 text-black/60 mb-4">

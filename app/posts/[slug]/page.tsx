@@ -1,39 +1,36 @@
+"use cache";
 import Link from "next/link";
 import { Metadata } from "next";
-import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { basehub } from "basehub";
 import { Pump } from "basehub/react-pump";
-import Post from "@/app/components/post";
-import MoreStories from "@/app/components/more-stories";
-import { getMorePosts, postBySlugQuery } from "@/lib/queries";
+import { Post, PostFragment } from "@/app/components/post";
+import { MoreStories } from "@/app/components/more-stories";
+import { PostMetaFragment } from "@/app/components/hero-post";
 
 export async function generateStaticParams() {
-  const {
-    blog: { posts },
-  } = await basehub({ cache: "no-store" }).query({
-    blog: {
-      posts: {
-        items: {
-          _slug: true,
-        },
-      },
-    },
+  const data = await basehub().query({
+    blog: { posts: { items: { _slug: true } } },
   });
 
-  return posts.items.map((post) => ({ slug: post._slug }));
+  return data.blog.posts.items.map((post) => ({ slug: post._slug }));
 }
+
+type PageProps = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const { blog } = await basehub({
-    next: { revalidate: 60 },
-    draft: draftMode().isEnabled,
-  }).query(postBySlugQuery(params.slug));
-  const [post] = blog.posts.items;
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const postData = await basehub().query({
+    blog: {
+      posts: {
+        __args: { first: 1, filter: { _sys_slug: { eq: slug } } },
+        items: PostMetaFragment,
+      },
+    },
+  });
+  const [post] = postData.blog.posts.items;
   if (!post) notFound();
 
   return {
@@ -42,27 +39,38 @@ export async function generateMetadata({
   };
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function PostPage({ params }: PageProps) {
+  const { slug } = await params;
   return (
     <Pump
-      next={{ revalidate: 60 }}
-      draft={draftMode().isEnabled}
-      queries={[postBySlugQuery(params.slug)]}
+      queries={[
+        {
+          blog: {
+            posts: {
+              __args: { first: 1, filter: { _sys_slug: { eq: slug } } },
+              items: PostFragment,
+            },
+          },
+        },
+        {
+          blog: {
+            posts: {
+              __args: {
+                filter: { _sys_slug: { notEq: slug } },
+                first: 8,
+                orderBy: "date__DESC",
+              },
+              items: PostMetaFragment,
+            },
+          },
+        },
+      ]}
     >
-      {async ([{ blog }]) => {
+      {async ([postData, morePostsData]) => {
         "use server";
 
-        const [post] = blog.posts.items;
+        const [post] = postData.blog.posts.items;
         if (!post) notFound();
-
-        const morePosts = await getMorePosts(
-          params.slug,
-          draftMode().isEnabled
-        );
 
         return (
           <main>
@@ -73,9 +81,9 @@ export default async function PostPage({
                 </Link>
                 .
               </h2>
-              <Post post={post} />
+              <Post {...post} />
               <hr className="mt-28 mb-24" />
-              <MoreStories morePosts={morePosts} />
+              <MoreStories morePosts={morePostsData.blog.posts.items} />
             </section>
           </main>
         );

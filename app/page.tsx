@@ -1,16 +1,22 @@
-import { draftMode } from "next/headers";
+"use cache";
 import { Pump } from "basehub/react-pump";
-import Intro from "./components/intro";
-import HeroPost from "./components/hero-post";
-import MoreStories from "./components/more-stories";
-import { allPostsQuery } from "@/lib/queries";
+import { Intro } from "./components/intro";
+import { HeroPost, PostMetaFragment } from "./components/hero-post";
+import { MoreStories } from "./components/more-stories";
 
 export default async function Page() {
   return (
     <Pump
-      next={{ revalidate: 60 }}
-      draft={draftMode().isEnabled}
-      queries={[allPostsQuery()]}
+      queries={[
+        {
+          blog: {
+            posts: {
+              __args: { orderBy: "date__DESC" },
+              items: PostMetaFragment,
+            },
+          },
+        },
+      ]}
     >
       {async ([{ blog }]) => {
         "use server";
@@ -22,16 +28,7 @@ export default async function Page() {
           <main>
             <section className="container mx-auto px-5">
               <Intro />
-              {heroPost && (
-                <HeroPost
-                  title={heroPost._title}
-                  coverImage={heroPost.coverImage}
-                  date={heroPost.date}
-                  author={heroPost.author}
-                  slug={heroPost._slug}
-                  excerpt={heroPost.excerpt}
-                />
-              )}
+              {heroPost && <HeroPost {...heroPost} />}
               <MoreStories morePosts={morePosts} />
             </section>
           </main>

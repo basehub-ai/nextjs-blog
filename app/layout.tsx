@@ -20,10 +20,10 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <Toolbar />
-        <section className="min-h-screen">
+        <main className="min-h-screen">
           {children}
           <Footer />
-        </section>
+        </main>
       </body>
     </html>
   );

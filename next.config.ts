@@ -1,5 +1,14 @@
-/** @type {import('next').NextConfig} */
+import { NextConfig } from "next";
+
 const nextConfig = {
+  experimental: {
+    dynamicIO: true,
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
@@ -9,6 +18,6 @@ const nextConfig = {
       },
     ],
   },
-};
+} satisfies NextConfig;
 
 export default nextConfig;
