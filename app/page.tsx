@@ -10,6 +10,7 @@ export default async function Page() {
       queries={[
         {
           blog: {
+            morePosts: true,
             posts: {
               __args: { orderBy: "date__DESC" },
               items: PostMetaFragment,
@@ -29,7 +30,7 @@ export default async function Page() {
             <section className="container mx-auto px-5">
               <Intro />
               {heroPost && <HeroPost {...heroPost} />}
-              <MoreStories morePosts={morePosts} />
+              <MoreStories morePosts={morePosts} title={blog.morePosts} />
             </section>
           </main>
         );
