@@ -1,4 +1,3 @@
-"use cache";
 import { Pump } from "basehub/react-pump";
 import { Intro } from "./components/intro";
 import { HeroPost, PostMetaFragment } from "./components/hero-post";

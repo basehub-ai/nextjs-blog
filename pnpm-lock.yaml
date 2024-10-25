@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   basehub:
-    specifier: 7.5.16
-    version: 7.5.16(@babel/runtime@7.24.1)(@types/react@18.2.67)(react-dom@19.0.0-rc-1631855f-20241023)(react@19.0.0-rc-1631855f-20241023)(typescript@5.4.3)
+    specifier: 7.5.17
+    version: 7.5.17(@babel/runtime@7.24.1)(@types/react@18.2.67)(react-dom@19.0.0-rc-1631855f-20241023)(react@19.0.0-rc-1631855f-20241023)(typescript@5.4.3)
   clsx:
     specifier: 2.1.0
     version: 2.1.0
@@ -1415,8 +1415,8 @@ packages:
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  /basehub@7.5.16(@babel/runtime@7.24.1)(@types/react@18.2.67)(react-dom@19.0.0-rc-1631855f-20241023)(react@19.0.0-rc-1631855f-20241023)(typescript@5.4.3):
-    resolution: {integrity: sha512-2VMSqFSQGoabpLOyUf3IABWsnA6DNJr48bJa3TNOYrsZShk+RlM19hG0/FoN5QhLZIatgJfou2jy9u1tim7hyA==}
+  /basehub@7.5.17(@babel/runtime@7.24.1)(@types/react@18.2.67)(react-dom@19.0.0-rc-1631855f-20241023)(react@19.0.0-rc-1631855f-20241023)(typescript@5.4.3):
+    resolution: {integrity: sha512-wdvQkowVIuB4NH4JV+eV0wzicNu6lb4CjaWvQtyndl+BSPE7Erk2DHbhqqrCCmLPVkVLqXTge7/mCA+XIfNlvQ==}
     hasBin: true
     dependencies:
       '@basehub/genql': 9.0.0-canary.5

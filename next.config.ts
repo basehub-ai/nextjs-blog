@@ -1,9 +1,6 @@
 import { NextConfig } from "next";
 
 const nextConfig = {
-  experimental: {
-    dynamicIO: true,
-  },
   logging: {
     fetches: {
       fullUrl: true,
