@@ -25,7 +25,7 @@ export const ClientSelectRoot = ({
     Cookie.set("preferred-language", value);
     console.log("reloading");
     router.push(pathname.replace(`/${defaultValue}`, `/${value}`));
-  }, [value]);
+  }, [value, defaultValue, pathname, router]);
 
   return (
     <Select defaultValue={defaultValue} value={value} onValueChange={setValue}>
