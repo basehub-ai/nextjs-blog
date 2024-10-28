@@ -9,16 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "basehub": "7.5.17",
+    "@formatjs/intl-localematcher": "0.5.6",
+    "basehub": "7.5.19",
     "clsx": "2.1.0",
     "date-fns": "3.6.0",
     "geist": "1.2.2",
-    "next": "15.0.2-canary.6",
+    "negotiator": "1.0.0",
+    "next": "15.0.1",
     "react": "19.0.0-rc-1631855f-20241023",
     "react-dom": "19.0.0-rc-1631855f-20241023"
   },
   "devDependencies": {
     "@tailwindcss/typography": "0.5.10",
+    "@types/negotiator": "0.6.3",
     "@types/node": "20.11.30",
     "@types/react": "18.2.67",
     "@types/react-dom": "18.2.22",

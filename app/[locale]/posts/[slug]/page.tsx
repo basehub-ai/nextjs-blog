@@ -6,16 +6,29 @@ import { Pump } from "basehub/react-pump";
 import { Post, PostFragment } from "@/app/components/post";
 import { MoreStories } from "@/app/components/more-stories";
 import { PostMetaFragment } from "@/app/components/hero-post";
+import { LanguagesEnum } from "@/.basehub/schema";
 
 export async function generateStaticParams() {
   const data = await basehub().query({
     blog: { posts: { items: { _slug: true } } },
+    sets: {
+      languages: {
+        variants: {
+          apiName: true,
+        },
+      },
+    },
   });
 
-  return data.blog.posts.items.map((post) => ({ slug: post._slug }));
+  return data.blog.posts.items.flatMap((post) =>
+    data.sets.languages.variants.map((variant) => ({
+      slug: post._slug,
+      locale: variant.apiName,
+    }))
+  );
 }
 
-type PageProps = { params: Promise<{ slug: string }> };
+type PageProps = { params: Promise<{ slug: string; locale: LanguagesEnum }> };
 
 export async function generateMetadata({
   params,
@@ -39,12 +52,17 @@ export async function generateMetadata({
 }
 
 export default async function PostPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   return (
     <Pump
       queries={[
         {
           blog: {
+            __args: {
+              variants: {
+                languages: locale,
+              },
+            },
             morePosts: true,
             posts: {
               __args: { first: 1, filter: { _sys_slug: { eq: slug } } },
@@ -54,6 +72,11 @@ export default async function PostPage({ params }: PageProps) {
         },
         {
           blog: {
+            __args: {
+              variants: {
+                languages: locale,
+              },
+            },
             posts: {
               __args: {
                 filter: { _sys_slug: { notEq: slug } },
@@ -85,6 +108,7 @@ export default async function PostPage({ params }: PageProps) {
               <MoreStories
                 morePosts={morePostsData.blog.posts.items}
                 title={postData.blog.morePosts}
+                locale={locale}
               />
             </section>
           </main>
