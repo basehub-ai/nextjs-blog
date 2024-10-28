@@ -3,6 +3,21 @@ import { Intro } from "../components/intro";
 import { HeroPost, PostMetaFragment } from "../components/hero-post";
 import { MoreStories } from "../components/more-stories";
 import { LanguagesEnum } from "@/.basehub/schema";
+import { basehub } from "basehub";
+
+export async function getStaticParams() {
+  const locales = await basehub().query({
+    sets: {
+      languages: {
+        variants: {
+          apiName: true,
+        },
+      },
+    },
+  });
+
+  return locales.sets.languages.variants.map((v) => ({ locale: v.apiName }));
+}
 
 export default async function Page({
   params,
