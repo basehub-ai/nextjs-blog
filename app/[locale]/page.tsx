@@ -5,10 +5,11 @@ import { MoreStories } from "../components/more-stories";
 import { LanguagesEnum } from "@/.basehub/schema";
 
 export default async function Page({
-  params: { locale },
+  params,
 }: {
-  params: { locale: LanguagesEnum };
+  params: Promise<{ locale: LanguagesEnum }>;
 }) {
+  const { locale } = await params;
   return (
     <Pump
       queries={[

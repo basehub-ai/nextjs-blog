@@ -33,9 +33,14 @@ type PageProps = { params: Promise<{ slug: string; locale: LanguagesEnum }> };
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const postData = await basehub().query({
     blog: {
+      __args: {
+        variants: {
+          languages: locale,
+        },
+      },
       posts: {
         __args: { first: 1, filter: { _sys_slug: { eq: slug } } },
         items: PostMetaFragment,
@@ -46,7 +51,7 @@ export async function generateMetadata({
   if (!post) notFound();
 
   return {
-    title: `Post / ${post._title}`,
+    title: post._title,
     description: post.excerpt,
   };
 }
@@ -98,7 +103,7 @@ export default async function PostPage({ params }: PageProps) {
         return (
           <main>
             <section className="container mx-auto px-5">
-              <h2 className="mt-16 mb-16 md:mb-12 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
+              <h2 className="mt-8 mb-16 md:mb-12 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
                 <Link href="/" className="hover:underline">
                   Blog.
                 </Link>
