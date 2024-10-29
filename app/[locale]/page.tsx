@@ -5,7 +5,7 @@ import { MoreStories } from "../components/more-stories";
 import { LanguagesEnum } from "@/.basehub/schema";
 import { basehub } from "basehub";
 
-export async function getStaticParams() {
+export async function generateStaticParams() {
   const locales = await basehub().query({
     sets: {
       languages: {

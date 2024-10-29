@@ -1,5 +1,3 @@
-import { NextConfig } from "next";
-
 const nextConfig = {
   logging: {
     fetches: {
@@ -15,6 +13,6 @@ const nextConfig = {
       },
     ],
   },
-} satisfies NextConfig;
+};
 
 export default nextConfig;
