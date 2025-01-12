@@ -1,5 +1,5 @@
 import { RichText } from "basehub/react-rich-text";
-import { CodeBlock, Language } from "basehub/react-code-block";
+import { CodeBlock } from "basehub/react-code-block";
 import CoverImage from "@/app/components/cover-image";
 import Avatar from "@/app/components/avatar";
 import Date from "@/app/components/date";
@@ -46,16 +46,9 @@ export function Post({ _title, author, date, coverImage, body }: PostFragment) {
           <RichText
             components={{
               img: (props) => <BodyImage {...props} />,
-              pre: ({ children }) => <>{children}</>,
-              code: ({ isInline, code, language, children }) => {
-                if (isInline) return <code>{children}</code>;
-                return (
-                  <CodeBlock
-                    theme="slack-dark"
-                    snippets={[{ code: code, lang: language as Language }]}
-                  />
-                );
-              },
+              pre: ({ code, language }) => (
+                <CodeBlock theme="slack-dark" snippets={[{ code, language }]} />
+              ),
             }}
           >
             {body.json.content}
