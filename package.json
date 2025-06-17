@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "basehub": "^8.0.3",
+    "basehub": "^9.0.1",
     "clsx": "2.1.0",
     "date-fns": "3.6.0",
     "geist": "1.2.2",
