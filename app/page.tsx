@@ -3,6 +3,8 @@ import { Intro } from "./components/intro";
 import { HeroPost, PostMetaFragment } from "./components/hero-post";
 import { MoreStories } from "./components/more-stories";
 
+export const dynamic = "force-static";
+
 export default async function Page() {
   return (
     <Pump
