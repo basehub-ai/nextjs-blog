@@ -9,13 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "basehub": "^9.2.2",
+    "basehub": "9.5.3",
     "clsx": "2.1.0",
     "date-fns": "3.6.0",
     "geist": "1.2.2",
-    "next": "15.3.3",
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "next": "15.5.7",
+    "react": "19.0.1",
+    "react-dom": "19.0.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "0.5.10",

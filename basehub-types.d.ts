@@ -46,8 +46,7 @@ export interface Scalars {
   options: string[];
   multiple: boolean
 } | {
-  type: "file";
-  private: boolean
+  type: "file"
 }))[],
     BSHBRichTextContentSchema: RichTextNode[],
     BSHBRichTextTOCSchema: RichTextTocNode[],
@@ -93,6 +92,8 @@ export interface Authors {
 export interface AuthorsItem {
     _analyticsKey: Scalars['String']
     _dashboardUrl: Scalars['String']
+    /** Array of search highlight information with field names and HTML markup */
+    _highlight: (SearchHighlight[] | null)
     _id: Scalars['String']
     _idPath: Scalars['String']
     _slug: Scalars['String']
@@ -103,7 +104,7 @@ export interface AuthorsItem {
     __typename: 'AuthorsItem'
 }
 
-export type AuthorsItemOrderByEnum = '_sys_createdAt__ASC' | '_sys_createdAt__DESC' | '_sys_hash__ASC' | '_sys_hash__DESC' | '_sys_id__ASC' | '_sys_id__DESC' | '_sys_lastModifiedAt__ASC' | '_sys_lastModifiedAt__DESC' | '_sys_slug__ASC' | '_sys_slug__DESC' | '_sys_title__ASC' | '_sys_title__DESC' | 'avatar__ASC' | 'avatar__DESC'
+export type AuthorsItemOrderByEnum = '_sys_createdAt__ASC' | '_sys_createdAt__DESC' | '_sys_hash__ASC' | '_sys_hash__DESC' | '_sys_id__ASC' | '_sys_id__DESC' | '_sys_lastModifiedAt__ASC' | '_sys_lastModifiedAt__DESC' | '_sys_slug__ASC' | '_sys_slug__DESC' | '_sys_title__ASC' | '_sys_title__DESC' | 'avatar__ASC' | 'avatar__DESC' | 'untitled__ASC' | 'untitled__DESC'
 
 export interface BaseRichTextJson {
     blocks: Scalars['String']
@@ -142,7 +143,7 @@ export interface BlockColor {
     __typename: 'BlockColor'
 }
 
-export type BlockDocument = (Authors | AuthorsItem | Blog | Meta | Newsletter | Posts | PostsItem | _AgentSTART | authorsItem_AsList | postsItem_AsList) & { __isUnion?: true }
+export type BlockDocument = (Authors | AuthorsItem | Blog | Meta | Newsletter | Posts | PostsItem | _AgentStart | authorsItem_AsList | postsItem_AsList) & { __isUnion?: true }
 
 export interface BlockDocumentSys {
     apiNamePath: Scalars['String']
@@ -360,6 +361,8 @@ export interface Posts {
 export interface PostsItem {
     _analyticsKey: Scalars['String']
     _dashboardUrl: Scalars['String']
+    /** Array of search highlight information with field names and HTML markup */
+    _highlight: (SearchHighlight[] | null)
     _id: Scalars['String']
     _idPath: Scalars['String']
     _slug: Scalars['String']
@@ -378,11 +381,13 @@ export interface PostsItem {
 export type PostsItemOrderByEnum = '_sys_createdAt__ASC' | '_sys_createdAt__DESC' | '_sys_hash__ASC' | '_sys_hash__DESC' | '_sys_id__ASC' | '_sys_id__DESC' | '_sys_lastModifiedAt__ASC' | '_sys_lastModifiedAt__DESC' | '_sys_slug__ASC' | '_sys_slug__DESC' | '_sys_title__ASC' | '_sys_title__DESC' | 'author__ASC' | 'author__DESC' | 'body__ASC' | 'body__DESC' | 'coverImage__ASC' | 'coverImage__DESC' | 'date__ASC' | 'date__DESC' | 'excerpt__ASC' | 'excerpt__DESC'
 
 export interface Query {
-    _agent: (_AgentSTART | null)
+    _agent: (_AgentStart | null)
     /** Query across the custom AI agents in the repository. */
     _agents: _agents
     /** Query across all of the instances of a component. Pass in filters and sorts if you want, and get each instance via the `items` key. */
     _componentInstances: _components
+    /** The diff between the current branch and the head commit. */
+    _diff: Scalars['JSON']
     /** The structure of the repository. Used by START. */
     _structure: Scalars['JSON']
     _sys: RepoSys
@@ -394,6 +399,8 @@ export interface Query {
 
 export interface RepoSys {
     branches: _Branches
+    dashboardUrl: Scalars['String']
+    forkUrl: Scalars['String']
     hash: Scalars['String']
     id: Scalars['ID']
     playgroundInfo: (_PlaygroundInfo | null)
@@ -403,6 +410,14 @@ export interface RepoSys {
 }
 
 export type RichTextJson = (BaseRichTextJson | BodyRichText) & { __isUnion?: true }
+
+export interface SearchHighlight {
+    /** The field/path that was matched (e.g., "title", "body.content") */
+    by: Scalars['String']
+    /** HTML snippet with <mark> tags around the matched terms */
+    snippet: Scalars['String']
+    __typename: 'SearchHighlight'
+}
 
 export interface SendNewPost {
     /** The `webhookSecret` is used to verify the authenticity of the webhook request, and also to type the payload. */
@@ -441,7 +456,7 @@ export interface Variant {
     __typename: 'Variant'
 }
 
-export interface _AgentSTART {
+export interface _AgentStart {
     _agentKey: Scalars['String']
     _analyticsKey: Scalars['String']
     _dashboardUrl: Scalars['String']
@@ -463,10 +478,11 @@ export interface _AgentSTART {
     manageBranches: Scalars['Boolean']
     mcpUrl: Scalars['String']
     model: Scalars['String']
+    openRouterKey: (Scalars['String'] | null)
     searchTheWeb: Scalars['Boolean']
     slackInstallUrl: Scalars['String']
     systemPrompt: Scalars['String']
-    __typename: '_AgentSTART'
+    __typename: '_AgentStart'
 }
 
 export interface _BranchInfo {
@@ -535,7 +551,7 @@ export type _ResolveTargetsWithEnum = 'id' | 'objectName'
 export type _StructureFormatEnum = 'json' | 'xml'
 
 export interface _agents {
-    start: _AgentSTART
+    start: _AgentStart
     __typename: '_agents'
 }
 
@@ -606,6 +622,7 @@ export interface AuthorsGenqlSelection{
     /** Returns the list of items after filtering and paginating according to the arguments sent by the client. */
     items?: AuthorsItemGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "Authors"
 }
 
 export interface AuthorsItemGenqlSelection{
@@ -617,6 +634,8 @@ export interface AuthorsItemGenqlSelection{
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
     _dashboardUrl?: boolean | number
+    /** Array of search highlight information with field names and HTML markup */
+    _highlight?: SearchHighlightGenqlSelection
     _id?: boolean | number
     _idPath?: boolean | number
     _slug?: boolean | number
@@ -625,15 +644,23 @@ export interface AuthorsItemGenqlSelection{
     _title?: boolean | number
     avatar?: BlockImageGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "AuthorsItem"
 }
 
 export interface AuthorsItemFilterInput {AND?: (AuthorsItemFilterInput | null),OR?: (AuthorsItemFilterInput | null),_id?: (StringFilter | null),_slug?: (StringFilter | null),_sys_apiNamePath?: (StringFilter | null),_sys_createdAt?: (DateFilter | null),_sys_hash?: (StringFilter | null),_sys_id?: (StringFilter | null),_sys_idPath?: (StringFilter | null),_sys_lastModifiedAt?: (DateFilter | null),_sys_slug?: (StringFilter | null),_sys_slugPath?: (StringFilter | null),_sys_title?: (StringFilter | null),_title?: (StringFilter | null)}
+
+export interface AuthorsItemSearchInput {
+/** Searchable fields for query */
+by?: (Scalars['String'][] | null),
+/** Search query */
+q?: (Scalars['String'] | null)}
 
 export interface BaseRichTextJsonGenqlSelection{
     blocks?: boolean | number
     content?: boolean | number
     toc?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BaseRichTextJson"
 }
 
 export interface BlockAudioGenqlSelection{
@@ -645,6 +672,7 @@ export interface BlockAudioGenqlSelection{
     mimeType?: boolean | number
     url?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BlockAudio"
 }
 
 export interface BlockCodeSnippetGenqlSelection{
@@ -656,6 +684,7 @@ export interface BlockCodeSnippetGenqlSelection{
     theme?: (Scalars['String'] | null)} } | boolean | number
     language?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BlockCodeSnippet"
 }
 
 export interface BlockColorGenqlSelection{
@@ -666,6 +695,7 @@ export interface BlockColorGenqlSelection{
     r?: boolean | number
     rgb?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BlockColor"
 }
 
 export interface BlockDocumentGenqlSelection{
@@ -690,10 +720,11 @@ export interface BlockDocumentGenqlSelection{
     on_Newsletter?: NewsletterGenqlSelection
     on_Posts?: PostsGenqlSelection
     on_PostsItem?: PostsItemGenqlSelection
-    on__AgentSTART?: _AgentSTARTGenqlSelection
+    on__AgentStart?: _AgentStartGenqlSelection
     on_authorsItem_AsList?: authorsItem_AsListGenqlSelection
     on_postsItem_AsList?: postsItem_AsListGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "BlockDocument"
 }
 
 export interface BlockDocumentSysGenqlSelection{
@@ -707,6 +738,7 @@ export interface BlockDocumentSysGenqlSelection{
     slugPath?: boolean | number
     title?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BlockDocumentSys"
 }
 
 export interface BlockFileGenqlSelection{
@@ -716,6 +748,7 @@ export interface BlockFileGenqlSelection{
     mimeType?: boolean | number
     url?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BlockFile"
 }
 
 export interface BlockImageGenqlSelection{
@@ -751,6 +784,7 @@ export interface BlockImageGenqlSelection{
     url?: { __args: {anim?: (Scalars['String'] | null), background?: (Scalars['String'] | null), blur?: (Scalars['Int'] | null), border?: (Scalars['String'] | null), brightness?: (Scalars['Int'] | null), compression?: (Scalars['String'] | null), contrast?: (Scalars['Int'] | null), dpr?: (Scalars['Int'] | null), fit?: (Scalars['String'] | null), format?: (Scalars['String'] | null), gamma?: (Scalars['String'] | null), gravity?: (Scalars['String'] | null), height?: (Scalars['Int'] | null), metadata?: (Scalars['String'] | null), quality?: (Scalars['Int'] | null), rotate?: (Scalars['String'] | null), sharpen?: (Scalars['String'] | null), trim?: (Scalars['String'] | null), width?: (Scalars['Int'] | null)} } | boolean | number
     width?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BlockImage"
 }
 
 export interface BlockListGenqlSelection{
@@ -776,6 +810,7 @@ export interface BlockListGenqlSelection{
     on_authorsItem_AsList?: authorsItem_AsListGenqlSelection
     on_postsItem_AsList?: postsItem_AsListGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "BlockList"
 }
 
 export interface BlockOgImageGenqlSelection{
@@ -783,6 +818,7 @@ export interface BlockOgImageGenqlSelection{
     url?: boolean | number
     width?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BlockOgImage"
 }
 
 
@@ -801,6 +837,7 @@ export interface BlockRichTextGenqlSelection{
     wpm?: (Scalars['Int'] | null)} } | boolean | number
     on_Body?: BodyGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "BlockRichText"
 }
 
 export interface BlockVideoGenqlSelection{
@@ -815,6 +852,7 @@ export interface BlockVideoGenqlSelection{
     url?: boolean | number
     width?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BlockVideo"
 }
 
 export interface BlogGenqlSelection{
@@ -839,6 +877,8 @@ export interface BlogGenqlSelection{
     first?: (Scalars['Int'] | null), 
     /** Order by a field. */
     orderBy?: (AuthorsItemOrderByEnum | null), 
+    /** Search configuration */
+    search?: (AuthorsItemSearchInput | null), 
     /** Skip the first n items. */
     skip?: (Scalars['Int'] | null)} })
     morePosts?: boolean | number
@@ -849,9 +889,12 @@ export interface BlogGenqlSelection{
     first?: (Scalars['Int'] | null), 
     /** Order by a field. */
     orderBy?: (PostsItemOrderByEnum | null), 
+    /** Search configuration */
+    search?: (PostsItemSearchInput | null), 
     /** Skip the first n items. */
     skip?: (Scalars['Int'] | null)} })
     __typename?: boolean | number
+    __fragmentOn?: "Blog"
 }
 
 export interface BodyGenqlSelection{
@@ -867,12 +910,14 @@ export interface BodyGenqlSelection{
     /** Words per minute, defaults to average 183wpm */
     wpm?: (Scalars['Int'] | null)} } | boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "Body"
 }
 
 export interface BodyRichTextGenqlSelection{
     content?: boolean | number
     toc?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "BodyRichText"
 }
 
 export interface DateFilter {eq?: (Scalars['DateTime'] | null),isAfter?: (Scalars['DateTime'] | null),isBefore?: (Scalars['DateTime'] | null),isNull?: (Scalars['Boolean'] | null),neq?: (Scalars['DateTime'] | null),onOrAfter?: (Scalars['DateTime'] | null),onOrBefore?: (Scalars['DateTime'] | null)}
@@ -881,6 +926,7 @@ export interface GetUploadSignedURLGenqlSelection{
     signedURL?: boolean | number
     uploadURL?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "GetUploadSignedURL"
 }
 
 export interface ListFilter {isEmpty?: (Scalars['Boolean'] | null),length?: (Scalars['Int'] | null)}
@@ -891,6 +937,7 @@ export interface ListMetaGenqlSelection{
     /** Total number of items in collection before any filtering/pagination */
     totalCount?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "ListMeta"
 }
 
 export interface MediaBlockGenqlSelection{
@@ -904,6 +951,7 @@ export interface MediaBlockGenqlSelection{
     on_BlockImage?: BlockImageGenqlSelection
     on_BlockVideo?: BlockVideoGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "MediaBlock"
 }
 
 export interface MediaBlockUnionGenqlSelection{
@@ -912,7 +960,8 @@ export interface MediaBlockUnionGenqlSelection{
     on_BlockImage?:BlockImageGenqlSelection,
     on_BlockVideo?:BlockVideoGenqlSelection,
     on_MediaBlock?: MediaBlockGenqlSelection,
-    __typename?: boolean | number
+    __typename?: boolean | number,
+    __fragmentOn?: "MediaBlockUnion"
 }
 
 export interface MetaGenqlSelection{
@@ -934,6 +983,7 @@ export interface MetaGenqlSelection{
     ogImage?: BlockOgImageGenqlSelection
     title?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "Meta"
 }
 
 export interface MutationGenqlSelection{
@@ -991,6 +1041,7 @@ export interface MutationGenqlSelection{
     /** Transaction ID */
     id: Scalars['String']} })
     __typename?: boolean | number
+    __fragmentOn?: "Mutation"
 }
 
 export interface NewsletterGenqlSelection{
@@ -1011,6 +1062,7 @@ export interface NewsletterGenqlSelection{
     sendNewPost?: SendNewPostGenqlSelection
     subscribers?: SubscribersGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "Newsletter"
 }
 
 export interface NumberFilter {eq?: (Scalars['Float'] | null),gt?: (Scalars['Float'] | null),gte?: (Scalars['Float'] | null),isNull?: (Scalars['Boolean'] | null),lt?: (Scalars['Float'] | null),lte?: (Scalars['Float'] | null),neq?: (Scalars['Float'] | null)}
@@ -1038,6 +1090,7 @@ export interface PostsGenqlSelection{
     /** Returns the list of items after filtering and paginating according to the arguments sent by the client. */
     items?: PostsItemGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "Posts"
 }
 
 export interface PostsItemGenqlSelection{
@@ -1049,6 +1102,8 @@ export interface PostsItemGenqlSelection{
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
     _dashboardUrl?: boolean | number
+    /** Array of search highlight information with field names and HTML markup */
+    _highlight?: SearchHighlightGenqlSelection
     _id?: boolean | number
     _idPath?: boolean | number
     _slug?: boolean | number
@@ -1062,20 +1117,31 @@ export interface PostsItemGenqlSelection{
     date?: boolean | number
     excerpt?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "PostsItem"
 }
 
 export interface PostsItemFilterInput {AND?: (PostsItemFilterInput | null),OR?: (PostsItemFilterInput | null),_id?: (StringFilter | null),_slug?: (StringFilter | null),_sys_apiNamePath?: (StringFilter | null),_sys_createdAt?: (DateFilter | null),_sys_hash?: (StringFilter | null),_sys_id?: (StringFilter | null),_sys_idPath?: (StringFilter | null),_sys_lastModifiedAt?: (DateFilter | null),_sys_slug?: (StringFilter | null),_sys_slugPath?: (StringFilter | null),_sys_title?: (StringFilter | null),_title?: (StringFilter | null),author?: (PostsItemFilterInput__author_0___untitled | null),date?: (DateFilter | null),excerpt?: (StringFilter | null)}
 
 export interface PostsItemFilterInput__author_0___untitled {_id?: (StringFilter | null),_slug?: (StringFilter | null),_sys_apiNamePath?: (StringFilter | null),_sys_createdAt?: (DateFilter | null),_sys_hash?: (StringFilter | null),_sys_id?: (StringFilter | null),_sys_idPath?: (StringFilter | null),_sys_lastModifiedAt?: (DateFilter | null),_sys_slug?: (StringFilter | null),_sys_slugPath?: (StringFilter | null),_sys_title?: (StringFilter | null),_title?: (StringFilter | null)}
 
+export interface PostsItemSearchInput {
+/** Searchable fields for query */
+by?: (Scalars['String'][] | null),
+/** Search query */
+q?: (Scalars['String'] | null)}
+
 export interface QueryGenqlSelection{
-    _agent?: (_AgentSTARTGenqlSelection & { __args: {
+    _agent?: (_AgentStartGenqlSelection & { __args: {
     /** The ID of the agent. */
     id: Scalars['String']} })
     /** Query across the custom AI agents in the repository. */
     _agents?: _agentsGenqlSelection
     /** Query across all of the instances of a component. Pass in filters and sorts if you want, and get each instance via the `items` key. */
     _componentInstances?: _componentsGenqlSelection
+    /** The diff between the current branch and the head commit. */
+    _diff?: { __args: {
+    /** Simplified diff returns only the items array showing statuses. */
+    simplified?: (Scalars['Boolean'] | null)} } | boolean | number
     /** The structure of the repository. Used by START. */
     _structure?: { __args: {
     /** The format of the structure. */
@@ -1095,16 +1161,20 @@ export interface QueryGenqlSelection{
     meta?: MetaGenqlSelection
     newsletter?: NewsletterGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "Query"
 }
 
 export interface RepoSysGenqlSelection{
     branches?: (_BranchesGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null)} })
+    dashboardUrl?: boolean | number
+    forkUrl?: boolean | number
     hash?: boolean | number
     id?: boolean | number
     playgroundInfo?: _PlaygroundInfoGenqlSelection
     slug?: boolean | number
     title?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "RepoSys"
 }
 
 export interface RichTextJsonGenqlSelection{
@@ -1113,6 +1183,16 @@ export interface RichTextJsonGenqlSelection{
     on_BaseRichTextJson?: BaseRichTextJsonGenqlSelection
     on_BodyRichText?: BodyRichTextGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "RichTextJson"
+}
+
+export interface SearchHighlightGenqlSelection{
+    /** The field/path that was matched (e.g., "title", "body.content") */
+    by?: boolean | number
+    /** HTML snippet with <mark> tags around the matched terms */
+    snippet?: boolean | number
+    __typename?: boolean | number
+    __fragmentOn?: "SearchHighlight"
 }
 
 export interface SelectFilter {excludes?: (Scalars['String'] | null),excludesAll?: (Scalars['String'][] | null),includes?: (Scalars['String'] | null),includesAll?: (Scalars['String'][] | null),includesAny?: (Scalars['String'][] | null),isEmpty?: (Scalars['Boolean'] | null)}
@@ -1121,6 +1201,7 @@ export interface SendNewPostGenqlSelection{
     /** The `webhookSecret` is used to verify the authenticity of the webhook request, and also to type the payload. */
     webhookSecret?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "SendNewPost"
 }
 
 export interface StringFilter {contains?: (Scalars['String'] | null),endsWith?: (Scalars['String'] | null),eq?: (Scalars['String'] | null),in?: (Scalars['String'][] | null),isNull?: (Scalars['Boolean'] | null),matches?: (StringMatchesFilter | null),notEq?: (Scalars['String'] | null),notIn?: (Scalars['String'][] | null),startsWith?: (Scalars['String'] | null)}
@@ -1134,6 +1215,7 @@ export interface SubscribersGenqlSelection{
     ingestKey?: boolean | number
     schema?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "Subscribers"
 }
 
 export interface TargetBlock {focus?: (Scalars['Boolean'] | null),id: Scalars['String'],label: Scalars['String']}
@@ -1147,6 +1229,7 @@ export interface TransactionStatusGenqlSelection{
     startedAt?: boolean | number
     status?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "TransactionStatus"
 }
 
 export interface VariantGenqlSelection{
@@ -1156,9 +1239,10 @@ export interface VariantGenqlSelection{
     isDefault?: boolean | number
     label?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "Variant"
 }
 
-export interface _AgentSTARTGenqlSelection{
+export interface _AgentStartGenqlSelection{
     _agentKey?: boolean | number
     _analyticsKey?: { __args: {
     /**
@@ -1186,10 +1270,12 @@ export interface _AgentSTARTGenqlSelection{
     manageBranches?: boolean | number
     mcpUrl?: boolean | number
     model?: boolean | number
+    openRouterKey?: boolean | number
     searchTheWeb?: boolean | number
     slackInstallUrl?: boolean | number
     systemPrompt?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "_AgentStart"
 }
 
 export interface _BranchInfoGenqlSelection{
@@ -1214,12 +1300,14 @@ export interface _BranchInfoGenqlSelection{
     updatedAt?: boolean | number
     workingRootBlockId?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "_BranchInfo"
 }
 
 export interface _BranchesGenqlSelection{
     _meta?: ListMetaGenqlSelection
     items?: _BranchInfoGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "_Branches"
 }
 
 export interface _CommitInfoGenqlSelection{
@@ -1237,12 +1325,14 @@ export interface _CommitInfoGenqlSelection{
     repoId?: boolean | number
     rootBlockId?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "_CommitInfo"
 }
 
 export interface _GitInfoGenqlSelection{
     branch?: boolean | number
     deploymentUrl?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "_GitInfo"
 }
 
 export interface _PlaygroundInfoGenqlSelection{
@@ -1251,11 +1341,13 @@ export interface _PlaygroundInfoGenqlSelection{
     expiresAt?: boolean | number
     id?: boolean | number
     __typename?: boolean | number
+    __fragmentOn?: "_PlaygroundInfo"
 }
 
 export interface _agentsGenqlSelection{
-    start?: _AgentSTARTGenqlSelection
+    start?: _AgentStartGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "_agents"
 }
 
 export interface _componentsGenqlSelection{
@@ -1266,6 +1358,8 @@ export interface _componentsGenqlSelection{
     first?: (Scalars['Int'] | null), 
     /** Order by a field. */
     orderBy?: (AuthorsItemOrderByEnum | null), 
+    /** Search configuration */
+    search?: (AuthorsItemSearchInput | null), 
     /** Skip the first n items. */
     skip?: (Scalars['Int'] | null)} })
     postsItem?: (postsItem_AsListGenqlSelection & { __args?: {
@@ -1275,9 +1369,12 @@ export interface _componentsGenqlSelection{
     first?: (Scalars['Int'] | null), 
     /** Order by a field. */
     orderBy?: (PostsItemOrderByEnum | null), 
+    /** Search configuration */
+    search?: (PostsItemSearchInput | null), 
     /** Skip the first n items. */
     skip?: (Scalars['Int'] | null)} })
     __typename?: boolean | number
+    __fragmentOn?: "_components"
 }
 
 export interface authorsItem_AsListGenqlSelection{
@@ -1303,6 +1400,7 @@ export interface authorsItem_AsListGenqlSelection{
     /** Returns the list of items after filtering and paginating according to the arguments sent by the client. */
     items?: AuthorsItemGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "authorsItem_AsList"
 }
 
 export interface postsItem_AsListGenqlSelection{
@@ -1328,6 +1426,7 @@ export interface postsItem_AsListGenqlSelection{
     /** Returns the list of items after filtering and paginating according to the arguments sent by the client. */
     items?: PostsItemGenqlSelection
     __typename?: boolean | number
+    __fragmentOn?: "postsItem_AsList"
 }
 
 export interface FragmentsMap {
@@ -1443,6 +1542,10 @@ export interface FragmentsMap {
     root: RichTextJson,
     selection: RichTextJsonGenqlSelection,
 }
+  SearchHighlight: {
+    root: SearchHighlight,
+    selection: SearchHighlightGenqlSelection,
+}
   SendNewPost: {
     root: SendNewPost,
     selection: SendNewPostGenqlSelection,
@@ -1459,9 +1562,9 @@ export interface FragmentsMap {
     root: Variant,
     selection: VariantGenqlSelection,
 }
-  _AgentSTART: {
-    root: _AgentSTART,
-    selection: _AgentSTARTGenqlSelection,
+  _AgentStart: {
+    root: _AgentStart,
+    selection: _AgentStartGenqlSelection,
 }
   _BranchInfo: {
     root: _BranchInfo,
